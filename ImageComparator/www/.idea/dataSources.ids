@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - mydb@localhost" uuid="2698bf3b-eae8-448f-9f23-2c7c27b06728">
+    <database-info product="MySQL" version="5.6.20-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="mydb"/>
+    <table name="browser" schema="" catalog="mydb" type="TABLE">
+      <column name="id_Browser" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="browser_shortcut" sqlType="CHAR" precision="2" scale="0" nullable="true" jdbcType="1"/>
+      <column name="browser_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_Browser"/>
+      <exported-key name="fk_Loaded_Images_Browser1" table="loaded_images" schema="" catalog="mydb" columns="browser_id"/>
+      <exported-key name="fk_Model_Images_Browser1" table="model_images" schema="" catalog="mydb" columns="browser_id"/>
+    </table>
+    <table name="environment" schema="" catalog="mydb" type="TABLE">
+      <column name="id_Environment" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="env_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="env_shortcut" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_Environment"/>
+      <exported-key name="fk_Loaded_Images_Environment1" table="loaded_images" schema="" catalog="mydb" columns="Environment_id_Environment"/>
+      <exported-key name="fk_Model_Images_Environment1" table="model_images" schema="" catalog="mydb" columns="Environment_id_Environment"/>
+    </table>
+    <table name="loaded_images" schema="" catalog="mydb" type="TABLE">
+      <column name="image_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="image_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="class_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="test_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_login" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="browser_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="status" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="full_path" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="build_id" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Environment_id_Environment" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Run_id_Run" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="image_id"/>
+      <foreign-key name="fk_Loaded_Images_Browser1" columns="browser_id" ref-table="browser" ref-schema="" ref-catalog="mydb" ref-columns="id_Browser" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Loaded_Images_Environment1" columns="Environment_id_Environment" ref-table="environment" ref-schema="" ref-catalog="mydb" ref-columns="id_Environment" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Loaded_Images_Run1" columns="Run_id_Run" ref-table="run" ref-schema="" ref-catalog="mydb" ref-columns="id_Run" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_Loaded_Images_Browser1_idx" unique="false" columns="browser_id"/>
+      <index name="fk_Loaded_Images_Environment1_idx" unique="false" columns="Environment_id_Environment"/>
+      <index name="fk_Loaded_Images_Run1_idx" unique="false" columns="Run_id_Run"/>
+    </table>
+    <table name="model_images" schema="" catalog="mydb" type="TABLE">
+      <column name="image_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="image_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="class_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="test_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_login" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="browser_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="status" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="full_path" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="build_id" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Environment_id_Environment" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Run_id_Run" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="image_id"/>
+      <foreign-key name="fk_Model_Images_Browser1" columns="browser_id" ref-table="browser" ref-schema="" ref-catalog="mydb" ref-columns="id_Browser" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Model_Images_Environment1" columns="Environment_id_Environment" ref-table="environment" ref-schema="" ref-catalog="mydb" ref-columns="id_Environment" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Model_Images_Run1" columns="Run_id_Run" ref-table="run" ref-schema="" ref-catalog="mydb" ref-columns="id_Run" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_Model_Images_Browser1_idx" unique="false" columns="browser_id"/>
+      <index name="fk_Model_Images_Environment1_idx" unique="false" columns="Environment_id_Environment"/>
+      <index name="fk_Model_Images_Run1_idx" unique="false" columns="Run_id_Run"/>
+    </table>
+    <table name="run" schema="" catalog="mydb" type="TABLE">
+      <column name="id_Run" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="run_number" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_Run"/>
+      <exported-key name="fk_Loaded_Images_Run1" table="loaded_images" schema="" catalog="mydb" columns="Run_id_Run"/>
+      <exported-key name="fk_Model_Images_Run1" table="model_images" schema="" catalog="mydb" columns="Run_id_Run"/>
+    </table>
+  </data-source>
+</component>
