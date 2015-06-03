@@ -99,7 +99,7 @@ $modelResults = mysql_query("SELECT * FROM mydb.model_images WHERE image_name = 
         var x;
         if (confirm("You attempt to set status \"Ignore\" for this picture. Pictures with the same name as the picture " +
             "ignored now will not be presented on Loaded Images page. Please confirm this action") == true) {
-            location.href='reject.php?Reject=<?= $image['image_id']?>';
+            location.href='ignore.php?Ignore=<?= $image['image_id']?>';
         } else {
             x = "You pressed Cancel!";
         }

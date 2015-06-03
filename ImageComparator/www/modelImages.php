@@ -20,8 +20,9 @@
         die('Could not connect: ' . mysql_error());
     }
 
-    $result = mysql_query("SELECT image_name, status, full_path, image_id, class_name
-                                    FROM mydb.model_images");
+    $result = mysql_query("SELECT m.image_name, m.status, m.full_path, m.image_id, m.class_name
+                                    FROM mydb.run r JOIN mydb.model_images m ON r.id_Run = m.Run_id_Run
+                                    ORDER BY cast(r.run_number AS SIGNED) DESC");
     if (!$result) {
         echo 'Could not run query: ' . mysql_error();
         exit;
@@ -37,7 +38,7 @@
             if ($row[1] == 'Accepted') $status = "class='label label-primary'";
             if ($row[1] == 'Rejected') $status = "class='label label-danger'";
             if ($row[1] == 'NEW') $status = "class='label label-default'";
-            if ($row[1] == 'DIFFERENT') $status = "class='label label-warning'";
+            if ($row[1] == 'Ignored') $status = "class='label label-warning'";
             echo"<tr>";
             echo"<td> $row[4] </td>";
             echo"<td> $row[0] </td>";

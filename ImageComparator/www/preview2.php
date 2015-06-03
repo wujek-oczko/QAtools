@@ -30,7 +30,7 @@ $image = mysql_fetch_assoc($result);
         if ($image['status'] == 'Accepted') $status = "class='label label-primary'";
         if ($image['status'] == 'Rejected') $status = "class='label label-danger'";
         if ($image['status'] == 'NEW') $status = "class='label label-default'";
-        if ($image['status'] == 'DIFFERENT') $status = "class='label label-warning'";
+        if ($image['status'] == 'Ignored') $status = "class='label label-warning'";
         ?>
         <td>Actual status of this image is: <label <?= ($status);?> > <?= ($image['status']);?></label></td>
     </tr>

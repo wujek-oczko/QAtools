@@ -31,7 +31,7 @@
       <file leaf-file-name="Comparator2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Comparator2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1479">
+            <state vertical-scroll-proportion="0.0" vertical-offset="782" max-vertical-offset="1479">
               <caret line="50" column="40" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
               <folding />
             </state>
@@ -51,7 +51,7 @@
       <file leaf-file-name="DbConnector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DbConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3077">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2057" max-vertical-offset="3077">
               <caret line="127" column="60" selection-start-line="127" selection-start-column="60" selection-end-line="127" selection-end-column="60" />
               <folding />
             </state>
@@ -61,8 +61,8 @@
       <file leaf-file-name="Jpeg.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Jpeg.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6091314" vertical-offset="836" max-vertical-offset="1734">
-              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.6804009" vertical-offset="443" max-vertical-offset="1734">
+              <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -115,6 +115,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -157,8 +159,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -947,8 +947,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Jpeg.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6091314" vertical-offset="836" max-vertical-offset="1734">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.6804009" vertical-offset="443" max-vertical-offset="1734">
+          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
           <folding />
         </state>
       </provider>

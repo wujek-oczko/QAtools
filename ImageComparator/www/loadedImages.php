@@ -105,7 +105,7 @@
             }else{ // No sorting by STATUS but sorted by RUN
                 $result = mysql_query("SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
                                     FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
-                                    WHERE r.run_number = '$sort'
+                                    WHERE r.run_number = '$sort' AND WHERE l.status != 'Ignored'
                                     ORDER BY cast(r.run_number AS SIGNED) DESC ");
                 if (!$result) {
                     echo 'Could not run query: ' . mysql_error();
@@ -160,12 +160,12 @@
                         echo"</tr>\n";
                     }
                 }
-//                    }
                 echo "</table>";
 
             } else { // No sorting
                 $result = mysql_query("SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
                                         FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
+                                        WHERE l.status != 'Ignored'
                                         ORDER BY cast(r.run_number AS SIGNED) DESC ");
                 if (!$result) {
                     echo 'Could not run query: ' . mysql_error();
@@ -188,6 +188,7 @@
                         echo "</tr>\n";
                     }
                 }
+                echo "</table>";
             }
         }
 
