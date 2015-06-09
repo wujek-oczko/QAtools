@@ -61,7 +61,6 @@
             mysql_connect('msdidev9.thlab.s3', 'root', 'root') or die (mysql_error());
             mysql_select_db("mydb") or die (mysql_error());
 
-
             $sort = @$_GET['order'];
             $sort2 = @$_GET['order2'];
             $status_color;
@@ -70,137 +69,53 @@
 
                 if(!empty($sort2)){ // Marked sorting by STATUS and by RUN
 
-                    $tyryry =  "'". implode("', '", (array)$sort2) ."'";
+                    $statusArray =  "'". implode("', '", (array)$sort2) ."'";
 
-                    $result = mysql_query("SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
+                    $result = "SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
                                         FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
-                                        WHERE r.run_number = '$sort' AND l.status IN ($tyryry)
-                                        ORDER BY cast(r.run_number AS SIGNED) DESC ");
-
-                    if (!$result) {
-                        echo 'Could not run query: ' . mysql_error();
-                        exit;
-                    }
-
-                    if (mysql_num_rows($result) > 0) {
-                        while ($row = mysql_fetch_row($result)) {
-                            if ($status == 'Accepted') $status_color = "class='label label-primary'";
-                            if ($status == 'Rejected') $status_color = "class='label label-danger'";
-                            if ($status == 'NEW') $status_color = "class='label label-default'";
-                            if ($status == 'Ignored') $status_color = "class='label label-warning'";
-                            echo"<tr>";
-                            echo"<td> $row[5] </td>";
-                            echo"<td> $row[0] </td>";
-    //                        echo"<td><img src=\"image.php?image={$row['3']}\" style=\"width:120px;\"></td>";
-                            echo"<td> $row[1] </td>";
-                            echo "<td><label $status_color align='center'>$row[2]</label> </td>";
-                            echo '<td><a href="preview.php?image=' . $row[4] . '" class="btn btn-lg btn-link"><img src=\'image.php?image={$row[\'3\']}\' style=\"width:120px;\"></a></td>';
-                            echo"</tr>\n";
-                        }
-                    }
-                    echo "</table>";
+                                        WHERE r.run_number = '$sort' AND l.status IN ($statusArray)
+                                        ORDER BY cast(r.run_number AS SIGNED) DESC ";
+                    pejdzing($result);
 
                 }else{ // No sorting by STATUS but sorted by RUN
-                    $result = mysql_query("SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
+                    $result = "SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
                                         FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
-                                        WHERE r.run_number = '$sort' AND WHERE l.status != 'Ignored'
-                                        ORDER BY cast(r.run_number AS SIGNED) DESC ");
-                    if (!$result) {
-                        echo 'Could not run query: ' . mysql_error();
-                        exit;
-                    }
-
-                    if (mysql_num_rows($result) > 0) {
-                        while ($row = mysql_fetch_row($result)) {
-                            if ($status == 'Accepted') $status_color = "class='label label-primary'";
-                            if ($status == 'Rejected') $status_color = "class='label label-danger'";
-                            if ($status == 'NEW') $status_color = "class='label label-default'";
-                            if ($status == 'Ignored') $status_color = "class='label label-warning'";
-                            echo"<tr>";
-                            echo"<td> $row[5] </td>";
-                            echo"<td> $row[0] </td>";
-    //                        echo"<td><img src=\"image.php?image={$row['3']}\" style=\"width:120px;\"></td>";
-                            echo"<td> $row[1] </td>";
-                            echo "<td><label $status_color align='center'>$row[2]</label> </td>";
-                            echo '<td><a href="preview.php?image=' . $row[4] . '" class="btn btn-lg btn-link"><img src=\'image.php?image={$row[\'3\']}\' style=\"width:120px;\"></a></td>';
-                            echo"</tr>\n";
-                        }
-                    }
-                    echo "</table>";
+                                        WHERE r.run_number = '$sort' AND l.status != 'Ignored'
+                                        ORDER BY cast(r.run_number AS SIGNED) DESC ";
+                    pejdzing($result);
                 }
 
             } else { // No sorting by RUN
                 if (!empty($sort2)) { // Marked sorting by STATUS
-                    $tyryry =  "'". implode("', '", (array)$sort2) ."'";
+                    $statusArray =  "'". implode("', '", (array)$sort2) ."'";
 
-                    $result = mysql_query("SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
+                    $result = "SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
                                             FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
-                                            WHERE l.status IN ($tyryry)
-                                            ORDER BY cast(r.run_number AS INT ) DESC ");
-                    if (!$result) {
-                        echo 'Could not run query: ' . mysql_error();
-                        exit;
-                    }
-
-                    if (mysql_num_rows($result) > 0) {
-                        while ($row = mysql_fetch_row($result)) {
-                            if ($status == 'Accepted') $status_color = "class='label label-primary'";
-                            if ($status == 'Rejected') $status_color = "class='label label-danger'";
-                            if ($status == 'NEW') $status_color = "class='label label-default'";
-                            if ($status == 'Ignored') $status_color = "class='label label-warning'";
-                            echo"<tr>";
-                            echo"<td> $row[5] </td>";
-                            echo"<td> $row[0] </td>";
-    //                        echo"<td><img src=\"image.php?image={$row['3']}\" style=\"width:120px;\"></td>";
-                            echo"<td> $row[1] </td>";
-                            echo "<td><label $status_color align='center'>$row[2]</label> </td>";
-                            echo '<td><a href="preview.php?image=' . $row[4] . '" class="btn btn-lg btn-link"><img src=\'image.php?image={$row[\'3\']}\' style=\"width:120px;\"></a></td>';
-                            echo"</tr>\n";
-                        }
-                    }
-                    echo "</table>";
+                                            WHERE l.status IN ($statusArray)
+                                            ORDER BY cast(r.run_number AS SIGNED) DESC ";
+                    pejdzing($result);
 
                 } else { // No sorting
-//                    $result = mysql_query("SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
-//                                            FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
-//                                            WHERE l.status != 'Ignored'
-//                                            ORDER BY cast(r.run_number AS SIGNED) DESC ");
-//                    if (!$result) {
-//                        echo 'Could not run query: ' . mysql_error();
-//                        exit;
-//                    }
 
                     $result = "SELECT l.image_name, r.run_number, l.status, l.full_path, l.image_id, l.class_name
                                             FROM mydb.run r JOIN mydb.loaded_images l ON r.id_Run = l.Run_id_Run
                                             WHERE l.status != 'Ignored'
                                             ORDER BY cast(r.run_number AS SIGNED) DESC ";
                     pejdzing($result);
-//                    if (mysql_num_rows($result) > 0) {
-//                        while ($row = mysql_fetch_row($result)) {
-//                            if ($status == 'Accepted') $status_color = "class='label label-primary'";
-//                            if ($status == 'Rejected') $status_color = "class='label label-danger'";
-//                            if ($status == 'NEW') $status_color = "class='label label-default'";
-//                            if ($status == 'Ignored') $status_color = "class='label label-warning'";
-//                            echo "<tr>";
-//                            echo "<td> $row[5] </td>";
-//                            echo "<td> $row[0] </td>";
-//    //                        echo "<td><img src=\"image.php?image={$row['3']}\" style=\"width:120px;\"></td>";
-//                            echo "<td> $row[1] </td>";
-//                            echo "<td><label $status_color align='center'>$row[2]</label> </td>";
-//                            echo '<td><a href="preview.php?image=' . $row[4] . '" class="btn btn-lg btn-link"><img src=\'image.php?image={$row[\'3\']}\' style=\"width:120px;\"></a></td>';
-//                            echo "</tr>\n";
-//                        }
-//                    }
-//                    echo "</table>";
                 }
             }
 
-            ?>
-
-            <?php
-
             function pejdzing($query)
             {
+                $sort = @$_GET['order'];
+                $sort2 = @$_GET['order2'];
+                if (isset($_GET['order2'])) {
+                    $arraySort = http_build_query(array('order2' => $sort2));
+                }
+                else $arraySort = null;
+
+//                $arraySort = http_build_query(array('order2' => $sort2));
+//                $statusArray =  "'". implode("', '", (array)$sort2) ."'";
                 //////////////  QUERY THE MEMBER DATA INITIALLY LIKE YOU NORMALLY WOULD
                 $sql = mysql_query($query);
                 //////////////////////////////////// Pagination Logic ////////////////////////////////////////////////////////////////////////
@@ -230,20 +145,20 @@
                 $add2 = $pn + 2;
                 if ($pn == 1) {
                     $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '">' . $add1 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $add1 . '</a> &nbsp;';
                 } else if ($pn == $lastPage) {
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '">' . $sub1 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $sub1 . '</a> &nbsp;';
                     $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
                 } else if ($pn > 2 && $pn < ($lastPage - 1)) {
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub2 . '">' . $sub2 . '</a> &nbsp;';
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '">' . $sub1 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub2 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $sub2 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $sub1 . '</a> &nbsp;';
                     $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '">' . $add1 . '</a> &nbsp;';
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add2 . '">' . $add2 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $add1 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add2 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $add2 . '</a> &nbsp;';
                 } else if ($pn > 1 && $pn < $lastPage) {
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '">' . $sub1 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $sub1 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $sub1 . '</a> &nbsp;';
                     $centerPages .= '&nbsp; <span class="pagNumActive">' . $pn . '</span> &nbsp;';
-                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '">' . $add1 . '</a> &nbsp;';
+                    $centerPages .= '&nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $add1 . '&order=' . $sort . '&order2=' . $arraySort . '">' . $add1 . '</a> &nbsp;';
                 }
                 // This line sets the "LIMIT" range... the 2 values we place to choose a range of rows from database in our query
                 $limit = 'LIMIT ' .($pn - 1) * $itemsPerPage .',' .$itemsPerPage;
@@ -260,14 +175,14 @@
                     // If we are not on page 1 we can place the Back button
                     if ($pn != 1) {
                         $previous = $pn - 1;
-                        $paginationDisplay .=  '&nbsp;  <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $previous . '"> Back</a> ';
+                        $paginationDisplay .=  '&nbsp;  <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $previous . '&order=' . $sort . '&order2=' . $arraySort . '"> Back</a> ';
                     }
                     // Lay in the clickable numbers display here between the Back and Next links
                     $paginationDisplay .= '<span class="paginationNumbers">' . $centerPages . '</span>';
                     // If we are not on the very last page we can place the Next button
                     if ($pn != $lastPage) {
                         $nextPage = $pn + 1;
-                        $paginationDisplay .=  '&nbsp;  <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $nextPage . '"> Next</a> ';
+                        $paginationDisplay .=  '&nbsp;  <a href="' . $_SERVER['PHP_SELF'] . '?pn=' . $nextPage . '&order=' . $sort . '&order2=' . $arraySort . '"> Next</a> ';
                     }
                 }
                 ///////////////////////////////////// END Pagination Display Setup ///////////////////////////////////////////////////////////////////////////
@@ -286,24 +201,18 @@
                     if ($status == 'Accepted') $status_color = "class='label label-primary'";
                     if ($status == 'Rejected') $status_color = "class='label label-danger'";
                     if ($status == 'NEW') $status_color = "class='label label-default'";
-                    if ($status == 'Ignored') $status_color = "class='label label-warning'";
+                    if ($status == 'DIFFERENT') $status_color = "class='label label-warning'";
 
                     $outputList .= "<tr><td>". $class_name . "</td><td>" . $image_name . "</td><td>" . $run_number . "</td><td><label " . $status_color . "align ='center'>"
                         . $status . "</label></td>
                         <td><a href=\"preview2.php?image=' . $image_id . '\" class=\"btn btn-lg btn-link\"><img src=\'image.php?image={ . $full_path . style=\"width:120px;\"></a></td></tr>";
 
-
                 } // close while loop
-
                 echo $outputList;
                 echo "</table>";
                 echo $paginationDisplay;
-//                return $paginationDisplay, $outputList;
             }
-
             ?>
-
-
         </form>
     </body>
 </html>
