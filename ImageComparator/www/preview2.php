@@ -1,19 +1,16 @@
 <?php
-$conn = mysql_connect('msdidev9.thlab.s3', 'root', 'root');
-if (!$conn) {
-    die('Could not connect: ' . mysql_error());
-}
+    $conn = mysql_connect('msdidev9.thlab.s3', 'root', 'root');
+    if (!$conn) {
+        die('Could not connect: ' . mysql_error());
+    }
 
-$result = mysql_query("SELECT image_name, status, full_path, image_id FROM mydb.model_images WHERE image_id = ".$_GET['image']);
-if (!$result) {
-    echo 'Could not run query: ' . mysql_error();
-    exit;
-}
+    $result = mysql_query("SELECT image_name, status, full_path, image_id FROM mydb.model_images WHERE image_id = ".$_GET['image']);
+    if (!$result) {
+        echo 'Could not run query: ' . mysql_error();
+        exit;
+    }
 
-//$result = mysql_query("SELECT * FROM mydb.model_images WHERE image_id = ".$_GET['image']);
-$image = mysql_fetch_assoc($result);
-
-
+    $image = mysql_fetch_assoc($result);
 ?>
 <html>
 
@@ -23,14 +20,13 @@ $image = mysql_fetch_assoc($result);
 
 <body>
 <table class="table table-bordered table-striped">
-
     <tr>
         <?php
-        $status;
-        if ($image['status'] == 'Accepted') $status = "class='label label-primary'";
-        if ($image['status'] == 'Rejected') $status = "class='label label-danger'";
-        if ($image['status'] == 'NEW') $status = "class='label label-default'";
-        if ($image['status'] == 'Ignored') $status = "class='label label-warning'";
+            $status;
+            if ($image['status'] == 'Accepted') $status = "class='label label-primary'";
+            if ($image['status'] == 'Rejected') $status = "class='label label-danger'";
+            if ($image['status'] == 'NEW') $status = "class='label label-default'";
+            if ($image['status'] == 'Ignored') $status = "class='label label-warning'";
         ?>
         <td>Actual status of this image is: <label <?= ($status);?> > <?= ($image['status']);?></label></td>
     </tr>

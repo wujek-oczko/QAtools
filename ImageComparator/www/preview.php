@@ -1,20 +1,16 @@
 <?php
-$conn = mysql_connect('msdidev9.thlab.s3', 'root', 'root');
-if (!$conn) {
-    die('Could not connect: ' . mysql_error());
-}
+    $conn = mysql_connect('msdidev9.thlab.s3', 'root', 'root');
+    if (!$conn) {
+        die('Could not connect: ' . mysql_error());
+    }
 
-$result = mysql_query("SELECT image_name, status, full_path FROM mydb.model_images");
-if (!$result) {
-    echo 'Could not run query: ' . mysql_error();
-    exit;
-}
+    $result = mysql_query("SELECT image_name, status, full_path, image_id FROM mydb.loaded_images WHERE image_id = ".$_GET['image']);
+    if (!$result) {
+        echo 'Could not run query: ' . mysql_error();
+    }
+    $image = mysql_fetch_assoc($result);
 
-$result = mysql_query("SELECT * FROM mydb.loaded_images WHERE image_id = ".$_GET['image']);
-$image = mysql_fetch_assoc($result);
-
-$modelResults = mysql_query("SELECT * FROM mydb.model_images WHERE image_name = '{$image['image_name']}'");
-
+    $modelResults = mysql_query("SELECT * FROM mydb.model_images WHERE image_name = '{$image['image_name']}'");
 ?>
 <html>
 
@@ -26,15 +22,13 @@ $modelResults = mysql_query("SELECT * FROM mydb.model_images WHERE image_name = 
 <table class="table table-bordered table-striped">
     <tr class="panel-heading">
         <?php
-        $status;
-        if ($image['status'] == 'Accepted') $status = "class='label label-primary'";
-        if ($image['status'] == 'Rejected') $status = "class='label label-danger'";
-        if ($image['status'] == 'NEW') $status = "class='label label-default'";
-        if ($image['status'] == 'DIFFERENT') $status = "class='label label-warning'";
+            $status;
+            if ($image['status'] == 'Accepted') $status = "class='label label-primary'";
+            if ($image['status'] == 'Rejected') $status = "class='label label-danger'";
+            if ($image['status'] == 'NEW') $status = "class='label label-default'";
+            if ($image['status'] == 'DIFFERENT') $status = "class='label label-warning'";
         ?>
-
         <td>Actual status of this image is: <label <?= ($status);?> > <?= ($image['status']);?></label></td><td></td>
-
     </tr>
     <tr>
         <td class="col-md-1">Image for acceptance: </td><td class="col-md-1">Model image/images: </td>
@@ -48,12 +42,10 @@ $modelResults = mysql_query("SELECT * FROM mydb.model_images WHERE image_name = 
                 <td>
                     <?php
                     while ($modelImage = mysql_fetch_assoc($modelResults)) {
-
                         echo '<a href="image.php?image='.urlencode($modelImage['full_path']).'" target="_blank"><img src="image.php?image='.urlencode($modelImage['full_path']).'" style="width: 600px;"></a><br/>';
                     }
                     ?>
                 </td>
-
             </tr>
             <tr>
                 <td class="panel-title">
@@ -63,10 +55,7 @@ $modelResults = mysql_query("SELECT * FROM mydb.model_images WHERE image_name = 
                     <input type="button" onclick="location.href='loadedImages.php'" value = 'Back' class='btn btn-xs btn-primary'>
                 </td>
             </tr>
-
         </td>
-
-
     </tr>
 </table>
 

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="MySQL - mydb@localhost" uuid="2698bf3b-eae8-448f-9f23-2c7c27b06728">
+    <data-source name="MySQL - mydb@msdidev9.thlab.s3" uuid="2698bf3b-eae8-448f-9f23-2c7c27b06728">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <schema-pattern>mydb.*</schema-pattern>
-      <default-schemas>mydb.*</default-schemas>
     </data-source>
   </component>
 </project>
-

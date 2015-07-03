@@ -4,6 +4,7 @@
  * User: marcinja
  * Date: 03-Jun-15
  * Time: 10:02 AM
+ * @param $Ignore
  */
 function ignore($Ignore){
     $conn = mysql_connect('msdidev9.thlab.s3', 'root', 'root');

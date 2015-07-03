@@ -2,7 +2,7 @@
 <html>
 <head></head>
 
-<h2>Ultra image comparator dupa dupa fjutek</h2>
+<h2>Ultra image comparator</h2>
 
 <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <?php

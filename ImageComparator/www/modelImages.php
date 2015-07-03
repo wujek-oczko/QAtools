@@ -93,6 +93,8 @@ while($row = mysql_fetch_array($sql2)){
     $class_name = $row["class_name"];
     $full_path = $row["full_path"];
 
+    $query_string = 'image=' . urlencode($image_id);
+
     if ($status == 'Accepted') $status_color = "class='label label-primary'";
     if ($status == 'Rejected') $status_color = "class='label label-danger'";
     if ($status == 'NEW') $status_color = "class='label label-default'";
@@ -100,7 +102,7 @@ while($row = mysql_fetch_array($sql2)){
 
     $outputList .= "<tr><td>". $class_name . "</td><td>" . $image_name . "</td><td><label " . $status_color . "align ='center'>"
         . $status . "</label></td>
-        <td><a href=\"preview2.php?image=' . $image_id . '\" class=\"btn btn-lg btn-link\"><img src=\'image.php?image={ . $full_path . style=\"width:120px;\"></a></tr>";
+        <td><a href=\"preview2.php? $query_string \" class=\"btn btn-lg btn-link\"><img src=\'image.php?image={$full_path} style=\"width:120px;\"></a></td></tr>";
 
 } // close while loop
 
